@@ -22,6 +22,8 @@ data, whereas a database is simply the place for processed data to be stored. On
 The dataset is made with the proper distribution of training, testing, and validation 
 data, a `yaml` file is made so that YOLO can use it for training.
 
+For access to images used for training, validation, and testing, see [here](https://mailuc-my.sharepoint.com/:f:/r/personal/steffenr_mail_uc_edu/Documents/UAV%20Design/UXO%20%F0%9F%92%A3?csf=1&web=1&e=f7bM14).
+
 ## Training
 
 The training step is simple. All it does it invoke YOLO from `ultralytics`, define a
