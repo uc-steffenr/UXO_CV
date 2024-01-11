@@ -1,0 +1,19 @@
+# stuff 2 ignore
+archive
+yolov5
+impy
+raw_data
+test
+train
+val
+databases
+resources
+datasets/full_dataset/train
+datasets/full_dataset/test
+datasets/full_dataset/val
+
+
+# packages
+*.tar
+*.zip
+*.gz
