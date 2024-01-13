@@ -12,16 +12,13 @@ general_args+=" --imgsz ${general['imgsz']}"
 if ${general['do_preprocess']}; then
     preprocess_cmd="python preprocess.py"
 
-    [[ -n ${general['seed']} ]] && preprocess_cmd+=" --seed ${preprocess['seed']}"
+    [[ -n ${preprocess['dataset_name']} ]] && preprocess_cmd+=" --dataset_name ${preprocess['dataset_name']}"
     [[ -n ${preprocess['percent_train']} ]] && preprocess_cmd+=" --percent_train ${preprocess['percent_train']}"
     [[ -n ${preprocess['percent_val']} ]] && preprocess_cmd+=" --percent_val ${preprocess['percent_val']}"
-    [[ -n ${preprocess['roboflow_version']} ]] && preprocess_cmd+=" --roboflow_version ${preprocess['roboflow_version']}"
-    [[ -n ${preprocess['database_name']} ]] && preprocess_cmd+=" --database_name ${preprocess['database_name']}"
-    [[ -n ${preprocess['dataset_name']} ]] && preprocess_cmd+=" --dataset_name ${preprocess['dataset_name']}"
-    [[ -n $"{preprocess['offset']}" ]] && preprocess_cmd+=" --offset ${preprocess['offset']}"
-    ${preprocess['shuffle_only']} && preprocess_cmd+=" --shuffle_only"
+    [[ -n $"{preprocess['roboflow_name']}" ]] && preprocess_cmd+=" --roboflow_name ${preprocess['roboflow_name']}"
+    [[ -n ${general['seed']} ]] && preprocess_cmd+=" --seed ${preprocess['seed']}"
+    
     echo $preprocess_cmd
-
     eval $preprocess_cmd
 fi
 
@@ -69,7 +66,6 @@ ${train['cos-lr']} && train_cmd+=" --cos-lr"
 
 
 # VAL
-# move weights dir to inner loop
 val_cmd="python yolov5/val.py"
 val_cmd+=" --batch-size ${val['batch']}" # --weights ${val['weights']}"
 val_cmd+=$general_args
@@ -87,6 +83,21 @@ ${val['verbose']} && val_cmd+=" --verbose"
 
 # echo $val_cmd
 
+# TEST
+test_cmd="python yolov5/val.py --task test"
+test_cmd+=" --batch-size ${test['batch']}"
+test_cmd+=$general_args
+
+[[ -n ${test[confidence_threshold'']} ]] && test_cmd+=" --conf ${test['confidence_threshold']}"
+
+${test['augment']} && test_cmd+=" --augment"
+${test['dnn']} && test_cmd+=" --dnn"
+${test['exist-ok']} && test_cmd+=" --exist-ok"
+${test['save-conf']} && test_cmd+=" --save-conf"
+${test['save-hybrid']} && test_cmd+=" --save-hybrid"
+${test['save-json']} && test_cmd+=" --save-json"
+${test['save-txt']} && test_cmd+=" --save-txt"
+${test['verbose']} && test_cmd+=" --verbose"
 
 # RUN SCRIPTS
 if ${general['all_opts']}; then
@@ -95,6 +106,7 @@ if ${general['all_opts']}; then
         curr_tune_cmd=$tune_cmd" --name ${tune['name']}_${opt} --opt ${opt}"
         curr_train_cmd=$train_cmd" --name ${train['name']}_${opt} --opt ${opt}"
         curr_val_cmd=$val_cmd" --name ${val['name']}_${opt}"
+        curr_test_cmd=$test_cmd" --name ${test['name']}_${opt}"
 
         if ${general['do_tune']}; then
             echo $curr_tune_cmd
@@ -121,11 +133,22 @@ if ${general['all_opts']}; then
             echo $curr_val_cmd
             eval $curr_val_cmd
         fi
+
+        if ${general['do_test']}; then
+            if ${general['do_train']}; then
+                curr_test_cmd+=" --weights ${project_dir}/${train['name']}_${opt}/weights/best.pt"
+            else
+                curr_test_cmd+=" --weights ${test['weights']}"
+            fi
+            echo $curr_test_cmd
+            eval $curr_test_cmd
+        fi
     done
 else
     tune_cmd+=" --name ${tune['name']} --opt ${general['opt']}"
     train_cmd+=" --name ${train['name']} --opt ${general['opt']}"
     val_cmd+=" --name ${val['name']}"
+    test_cmd+=" --name ${test['name']}"
 
     if ${general['do_tune']}; then
         echo $tune_cmd
@@ -134,9 +157,9 @@ else
 
     if ${general['do_train']}; then
             if ${general['do_tune']}; then
-                curr_train_cmd+=" --hyp ${project_dir}/${tune['name']}/hyp_evolve.yaml"
+                train_cmd+=" --hyp ${project_dir}/${tune['name']}/hyp_evolve.yaml"
             elif [[ -n ${train['hyp']} ]]; then
-                curr_train_cmd+=" --hyp ${train['hyp']}"
+                train_cmd+=" --hyp ${train['hyp']}"
             fi
         echo $train_cmd
         eval $train_cmd
@@ -144,11 +167,21 @@ else
 
     if ${general['do_val']}; then
             if ${general['do_train']}; then
-                curr_val_cmd+=" --weights ${project_dir}/${train['name']}/weights/best.pt"
+                val_cmd+=" --weights ${project_dir}/${train['name']}/weights/best.pt"
             else
-                curr_val_cmd+=" --weights ${val['weights']}"
+                val_cmd+=" --weights ${val['weights']}"
             fi
         echo $val_cmd
         eval $val_cmd
+    fi
+
+    if ${general['do_test']}; then
+        if ${general['do_train']}; then
+            test_cmd+=" --weights ${project_dir}/${train['name']}/weights/best.pt"
+        else
+            test_cmd+=" --weights ${test['weights']}"
+        fi
+        echo $test_cmd
+        eval $test_cmd
     fi
 fi
