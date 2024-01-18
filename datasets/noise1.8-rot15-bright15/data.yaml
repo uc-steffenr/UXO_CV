@@ -1,0 +1,11 @@
+names:
+- KSF Casing
+- PFM-1
+nc: 2
+shuffle_seed: 12345
+test: "/mnt/c/Users/Nate Steffen/OneDrive - University of Cincinnati/UAV Design/UXO\
+  \ \U0001F4A3/datasets/noise1.8-rot15-bright15/test"
+train: "/mnt/c/Users/Nate Steffen/OneDrive - University of Cincinnati/UAV Design/UXO\
+  \ \U0001F4A3/datasets/noise1.8-rot15-bright15/train"
+val: "/mnt/c/Users/Nate Steffen/OneDrive - University of Cincinnati/UAV Design/UXO\
+  \ \U0001F4A3/datasets/noise1.8-rot15-bright15/val"
