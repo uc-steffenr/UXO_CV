@@ -36,3 +36,5 @@ datasets/noise1.8-rot15-bright15/val
 *.tar
 *.zip
 *.gz
+
+*.pyc
