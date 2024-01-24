@@ -1,7 +1,7 @@
-from math import sin, cos, sqrt
+from math import atan, pi, sin, cos, sqrt
 import numpy as np
 from constants import focal_px, alpha_az, alpha_el, states_const
-from utils import pretty_print
+from my_utils import pretty_print
 
 
 class Geolocation:
@@ -88,6 +88,16 @@ class Geolocation:
         pobj_i = puav_i + L * (Rib @ Rbg @ Rgc @ l0c)
         pretty_print(pobj_i, "Target Location (Inertial Frame)")
         return pobj_i
+
+    def get_lat_long(self, p_obj_i):
+        pn = p_obj_i.item(0)
+        pe = p_obj_i.item(1)
+        pd = p_obj_i.item(2)
+
+        phi = atan(pd / pn) * 180 / pi  # lat °
+        lambd = atan(pn / pe) * 180 / pi  # long °
+
+        return phi, lambd
 
     def get_target_loc_with_ekf():
         pass
