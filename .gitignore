@@ -1,36 +1,15 @@
 # stuff 2 ignore
 archive
 yolov5
-impy
 raw_data
-test
-train
-val
 databases
 resources
-datasets/full_dataset/train
-datasets/full_dataset/test
-datasets/full_dataset/val
 
-datasets/benchmark/train
-datasets/benchmark/test
-datasets/benchmark/val
+datasets/**/**/train
+datasets/**/**/test
+datasets/**/**/val
 
-datasets/noise1.8/train
-datasets/noise1.8/test
-datasets/noise1.8/val
-
-datasets/noise1.8-rot15/train
-datasets/noise1.8-rot15/test
-datasets/noise1.8-rot15/val
-
-datasets/noise1.8-rot15-blur2px/train
-datasets/noise1.8-rot15-blur2px/test
-datasets/noise1.8-rot15-blur2px/val
-
-datasets/noise1.8-rot15-bright15/train
-datasets/noise1.8-rot15-bright15/test
-datasets/noise1.8-rot15-bright15/val
+datasets/**/**/*_results/labels
 
 # packages
 *.tar

@@ -1,4 +1,4 @@
-weights: datasets/noise1.8-rot15/yolov5n.pt
+weights: datasets/noise1.8-rot15/run1/train_results/weights/last.pt
 cfg: ''
 data: datasets/noise1.8-rot15/data.yaml
 hyp:
@@ -35,7 +35,7 @@ epochs: 200
 batch_size: 30
 imgsz: 640
 rect: false
-resume: false
+resume: true
 nosave: false
 noval: false
 noautoanchor: false

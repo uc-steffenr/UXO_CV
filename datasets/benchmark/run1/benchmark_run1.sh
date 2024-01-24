@@ -16,13 +16,13 @@ optimizers=('SGD' 'Adam' 'AdamW')
 general['all_opts']=false
 general['data']=data.yaml
 general['do_preprocess']=false
-general['do_tune']=false
-general['do_train']=true
-general['do_val']=true
-general['do_test']=true
+general['do_tune']=true
+general['do_train']=false
+general['do_val']=false
+general['do_test']=false
 general['imgsz']=640
 general['opt']=SGD
-general['project']=run1
+general['project']=tmp
 general['dataset_dir']=datasets/benchmark
 
 
