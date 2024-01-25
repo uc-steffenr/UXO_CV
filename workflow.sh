@@ -53,8 +53,9 @@ train_cmd+=$general_args
 # [[ -n ${train['hyp']} ]] && train_cmd+=" --hyp ${train['hyp']}"
 [[ -n ${train['seed']} ]] && train_cmd+=" --seed ${train['seed']}"
 [[ -n ${train['patience']} ]] && train_cmd+=" --patience ${train['patience']}"
-[[ -n ${train['resume']} ]] && train_cmd+=" --resume ${train['resume']}"
+# [[ -n ${train['resume']} ]] && train_cmd+=" --resume ${train['resume']}"
 
+${train['resume']} && train_cmd+=" --resume"
 ${train['nosave']} && train_cmd+=" --nosave"
 ${train['noval']} && train_cmd+=" --noval"
 ${train['noplots']} && train_cmd+=" --noplots"
