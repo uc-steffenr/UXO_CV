@@ -5,6 +5,8 @@ raw_data
 databases
 resources
 
+faster-rcnn.pytorch
+
 datasets/**/**/train
 datasets/**/**/test
 datasets/**/**/val

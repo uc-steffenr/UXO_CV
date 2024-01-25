@@ -43,9 +43,4 @@ Will be put in as citations later. See resources tab.
 
 ## TODO
 
-- Make valdation method
-- Get rest of annotations
-- Look into adding noise to images
-- Figure out how to get yolov5n.pt instead of yolov5s.pt
-- Turn this into a git repo
-- Program to compare `faster_rcnn_1_50_10067.pth` to weights from yolo
+[ ] Program to compare `faster_rcnn_1_50_10067.pth` to weights from yolo (not looking good)
