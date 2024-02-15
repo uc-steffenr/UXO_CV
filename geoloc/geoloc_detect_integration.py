@@ -2,6 +2,7 @@ import torch
 import pathlib
 import cv2
 from constants import states_const
+from my_utils import deg2mins
 from geolocation import Geolocation
 
 temp = pathlib.PosixPath
@@ -35,21 +36,23 @@ for box in boxes:
 g = Geolocation()
 gps_points = []
 for px in full_pxs:
-    out = g.get_target_loc(px[0], px[1], states_const)
-    out2 = g.get_lat_long(out)
-    gps_points.append((round(out2[0], 2), round(out2[1], 2)))
+    # out = g.get_target_loc(px[0], px[1], states_const)
+    # out2 = g.get_lat_long(out)
+    print(f"Given PX,PY = {px}")
+    out2 = g.get_target_loc_utm(px[0], px[1], 1, 15)
+    gps_points.append((deg2mins(out2[0]), deg2mins(out2[1])))
 
 img = cv2.imread(IMAGE_PATH)
 img2 = img.copy()
 
-for p in points:
+for i, p in enumerate(points):
     cv2.circle(img2, p, 3, (255, 0, 0), -1, lineType=cv2.LINE_AA)
     cv2.putText(
         img2,
-        f"{gps_points[0]}",
+        f"{gps_points[i]}",
         p,
         cv2.FONT_HERSHEY_SIMPLEX,
-        1,
+        0.5,
         (255, 0, 0),
         2,
     )

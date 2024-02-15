@@ -2,6 +2,8 @@ from math import atan, pi, tan
 import cv2
 import numpy as np
 
+from my_utils import long2UTM
+
 # ----------------------------------------------
 #               STATES
 # ----------------------------------------------
@@ -9,9 +11,11 @@ altitude = 10  # m
 speed = 2  # m/s
 E0 = 420000  # m, object
 N0 = 4600000  # m
+long_brighampton = -75.970421  # °
+utm_zone = long2UTM(long_brighampton)
 
 # x,y,h,phi,theta,psi,u,v,w,p,q,r
-states_const = np.array((E0, N0, 0, altitude, 0, 0, 0, speed, 0, 0, 0, 0, 0))
+states_const = np.array((E0, N0, altitude, 0, 0, 0, speed, 0, 0, 0, 0, 0))
 
 # ----------------------------------------------
 #           CAMERA PARAMETERS

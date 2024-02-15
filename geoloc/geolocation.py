@@ -1,7 +1,8 @@
 from math import atan, pi, sin, cos, sqrt
 import numpy as np
-from constants import focal_px, alpha_az, alpha_el, states_const
+from constants import E0, N0, focal_px, alpha_az, alpha_el, states_const, utm_zone
 from my_utils import pretty_print
+import utm
 
 
 class Geolocation:
@@ -92,7 +93,7 @@ class Geolocation:
     def get_lat_long(self, p_obj_i):
         pn = p_obj_i.item(0)
         pe = p_obj_i.item(1)
-        pd = p_obj_i.item(2)
+        pd = p_obj_i.item(2) + 6371 * 10**3  # m (center to surface)
 
         phi = atan(pd / pn) * 180 / pi  # lat °
         lambd = atan(pn / pe) * 180 / pi  # long °
@@ -102,8 +103,19 @@ class Geolocation:
     def get_target_loc_with_ekf():
         pass
 
-    def get_target_loc_utm():
-        pass
+    def get_target_loc_utm(self, px, py, row, col):
+        size = 700
+        overlap = 70  # px
+        x_res, y_res = 0.00644, -0.00644  # m/px
+
+        ortho_px = px + (col * (size - overlap))
+        ortho_py = py + (row * (size - overlap))
+
+        obj_easting = E0 + (ortho_px * x_res)
+        obj_northing = N0 + (ortho_py * y_res)
+        gps = utm.to_latlon(obj_easting, obj_northing, utm_zone, "T")
+        print(f"Found at {gps}")
+        return gps
 
 
 if __name__ == "__main__":
