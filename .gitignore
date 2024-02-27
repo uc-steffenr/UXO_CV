@@ -38,4 +38,6 @@ datasets/noise1.8-rot15-bright15/val
 *.gz
 
 *.pyc
-optical_flow/short_video_frames/*
+optical_flow/raw_short_video_frames/*
+optical_flow/raw_supershort_frames/*
+optical_flow/supershort_tracking/*
