@@ -41,3 +41,10 @@ datasets/noise1.8-rot15-bright15/val
 optical_flow/raw_short_video_frames/*
 optical_flow/raw_supershort_frames/*
 optical_flow/supershort_tracking/*
+optical_flow/supershorttracking_2/*
+optical_flow/supershorttracking_3/*
+optical_flow/supershorttracking_4/*
+optical_flow/240226-1301_flighttest/raw/*
+optical_flow/240226-1301_flighttest/processed/*
+optical_flow/240226-1301_flighttest/raw-short/*
+optical_flow/240226-1301_flighttest/processed-short/*

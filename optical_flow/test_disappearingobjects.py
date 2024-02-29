@@ -7,47 +7,45 @@ sys.path.append(r"C:\Git\UXO\UXO_CV")
 from optical_flow.centroid_tracking.centroidtracker import CentroidTracker
 from optical_flow.centroid_tracking.uxo_model import process_frame
 
-frames = glob(r"C:\Git\UXO\UXO_CV\optical_flow\raw_supershort_frames\*.jpg")
-# print(frames)
+frames = glob(r"C:\Git\UXO\UXO_CV\optical_flow\240226-1301_flighttest\raw-short\*.jpg")
 ct = CentroidTracker()
 i = 0
 frames.sort()
 for img in frames:
-    print(f"Checking frame {i}/{len(frames)}")
+    print(f"Checking frame {i+1}/{len(frames)}")
     uxos, rectangles = process_frame(
         img, r"C:\Git\UXO\UXO_CV\optical_flow\reallyreallybig_run3_best.pt"
     )
-    # for u in uxos:
-    #     ct.register(u.bb_center)
-    # objects = ct.update(rectangles)
-    ct.update(rectangles)
+    objects = ct.update(rectangles)
     img2 = cv2.imread(img)
     # img3 = img2.copy()
 
-    # update our centroid tracker using the computed set of bounding box rectangles
-    # objects = ct.update(rects)
-    # loop over the tracked objects
     for objectID, centroid in ct.objects.items():
         # draw both the ID of the object and the centroid of the
-        if objectID not in list(ct.disappeared.keys()) or len(centroid) != 1:
-            print(f"Tracking new object: {objectID}")
+        # if objectID not in list(ct.disappeared.keys()) or len(centroid) != 1:
+        times_disappeared = ct.disappeared[objectID]
+        if times_disappeared == 0:  # hasn't disappeared yet
+            print(f"Tracking object: {objectID}")
             # object on the output frame
-            text = "ID {}".format(objectID)
+            text = f"ID {objectID}"
             cv2.putText(
                 img2,
                 text,
                 (int(centroid[0] - 10), int(centroid[1] - 10)),
                 cv2.FONT_HERSHEY_SIMPLEX,
                 0.5,
-                (0, 255, 0),
+                (0, 72, 196),
                 2,
             )
-            cv2.circle(img2, (int(centroid[0]), int(centroid[1])), 4, (0, 255, 0), -1)
-        else:
+            cv2.circle(img2, (int(centroid[0]), int(centroid[1])), 4, (0, 72, 196), -1)
+        elif centroid[0] == 0:
             print(f"Oops -- looks like object {objectID} has disappeared")
+        else:
+            print(f"Why are we here?-- {objects}")
     # show the output frame
     temp_path = os.path.join(
-        r"C:\Git\UXO\UXO_CV\optical_flow\supershorttracking_2", f"{i:02}frame.jpg"
+        r"C:\Git\UXO\UXO_CV\optical_flow\240226-1301_flighttest\processed-short",
+        f"{i:03}frame.jpg",
     )
     print(temp_path)
     cv2.imwrite(temp_path, img2)
