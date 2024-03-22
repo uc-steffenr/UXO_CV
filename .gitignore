@@ -52,3 +52,4 @@ optical_flow/processed_supershort_frames/*
 optical_flow/processed_short_video_frames/*
 optical_flow/240204_flighttest/processed/*
 optical_flow/240204_flighttest/raw/*.mp4
+optical_flow/240204_flighttest/raw/*

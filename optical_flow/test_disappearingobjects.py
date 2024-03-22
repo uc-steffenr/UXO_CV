@@ -4,14 +4,9 @@ import sys
 from typing import Tuple
 import cv2
 
-# MODEL = r"C:\Git\UXO\UXO_CV\optical_flow\reallyreallybig_run3_best.pt"
 MODEL = r"C:\Git\UXO\UXO_CV\optical_flow\super-big-augmented-medium.pt"
-# INPUT_DIR = r"C:\Git\UXO\UXO_CV\optical_flow\240226-1301_flighttest\raw-short"
-# INPUT_DIR = r"C:\Git\UXO\UXO_CV\optical_flow\raw_supershort_frames"
-INPUT_DIR = r"C:\Git\UXO\UXO_CV\optical_flow\raw_short_video_frames"
-# OUTPUT_DIR = r"C:\Git\UXO\UXO_CV\optical_flow\240226-1301_flighttest\processed-short"
-# OUTPUT_DIR = r"C:\Git\UXO\UXO_CV\optical_flow\processed_supershort_frames"
-OUTPUT_DIR = r"C:\Git\UXO\UXO_CV\optical_flow\processed_short_video_frames"
+INPUT_DIR = r"C:\Git\UXO\UXO_CV\optical_flow\240226-1301_flighttest\raw-short"
+OUTPUT_DIR = r"C:\Git\UXO\UXO_CV\optical_flow\240226-1301_flighttest\processed-short"
 UNCONFIRMED_COLOR = (230, 16, 34)
 CONFIRMED_COLOR = (94, 16, 230)
 SHOW_FRAMES = False
