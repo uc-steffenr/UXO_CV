@@ -4,11 +4,14 @@ import sys
 from typing import Tuple
 import cv2
 
-MODEL = r"C:\Git\UXO\UXO_CV\optical_flow\reallyreallybig_run3_best.pt"
-# r"C:\Git\UXO\UXO_CV\optical_flow\240226-1301_flighttest\raw-short"
-INPUT_DIR = r"C:\Git\UXO\UXO_CV\optical_flow\raw_supershort_frames"
+# MODEL = r"C:\Git\UXO\UXO_CV\optical_flow\reallyreallybig_run3_best.pt"
+MODEL = r"C:\Git\UXO\UXO_CV\optical_flow\super-big-augmented-medium.pt"
+# INPUT_DIR = r"C:\Git\UXO\UXO_CV\optical_flow\240226-1301_flighttest\raw-short"
+# INPUT_DIR = r"C:\Git\UXO\UXO_CV\optical_flow\raw_supershort_frames"
+INPUT_DIR = r"C:\Git\UXO\UXO_CV\optical_flow\raw_short_video_frames"
 # OUTPUT_DIR = r"C:\Git\UXO\UXO_CV\optical_flow\240226-1301_flighttest\processed-short"
-OUTPUT_DIR = r"C:\Git\UXO\UXO_CV\optical_flow\processed_supershort_frames"
+# OUTPUT_DIR = r"C:\Git\UXO\UXO_CV\optical_flow\processed_supershort_frames"
+OUTPUT_DIR = r"C:\Git\UXO\UXO_CV\optical_flow\processed_short_video_frames"
 UNCONFIRMED_COLOR = (230, 16, 34)
 CONFIRMED_COLOR = (94, 16, 230)
 SHOW_FRAMES = False
@@ -46,8 +49,7 @@ i = 0
 frames.sort()
 for img in frames:
     print(f"Checking frame {i+1}/{len(frames)}")
-    uxos, rectangles = process_frame(img, MODEL)
-    print(f"len(rects) = {len(rectangles)}")
+    uxos, rectangles = process_frame(img, MODEL, 0.4)
     objects = ct.update(rectangles)
     img2 = cv2.imread(img)
     # img3 = img2.copy()

@@ -54,11 +54,13 @@ class UXO:
 def process_frame(
     image_path: str,
     modelname: str = "datasets/noise1.8-rot15/run1/train_results/weights/best.pt",
+    confidence: float = 0.8,
 ) -> Union[List[UXO], List[tuple]]:
     model = torch.hub.load("ultralytics/yolov5", "custom", modelname)
     model.cpu()
 
     rects = []
+    model.conf = confidence
     results = model(image_path)
     uxos = create_uxo_object(results)
     for u in uxos:

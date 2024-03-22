@@ -49,3 +49,6 @@ optical_flow/240226-1301_flighttest/processed/*
 optical_flow/240226-1301_flighttest/raw-short/*
 optical_flow/240226-1301_flighttest/processed-short/*
 optical_flow/processed_supershort_frames/*
+optical_flow/processed_short_video_frames/*
+optical_flow/240204_flighttest/processed/*
+optical_flow/240204_flighttest/raw/*.mp4

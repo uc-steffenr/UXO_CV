@@ -1,15 +1,16 @@
 import os
 import cv2
 
-vidcap = cv2.VideoCapture(
-    r"C:\Git\UXO\UXO_CV\optical_flow\240226-1301_flighttest\raw-short\short_flighttest_22724.mp4"
-)
+INPUT_VIDEO = r"C:\Git\UXO\UXO_CV\optical_flow\240204_flighttest\raw\UXO-YOLOLabeled-Cropped-5sec.mp4"
+OUTPUT_DIR = r"C:\Git\UXO\UXO_CV\optical_flow\240204_flighttest\processed"
+
+vidcap = cv2.VideoCapture(INPUT_VIDEO)
 success, image = vidcap.read()
 count = 0
 while success:
     cv2.imwrite(
         os.path.join(
-            r"C:\Git\UXO\UXO_CV\optical_flow\240226-1301_flighttest\raw-short",
+            OUTPUT_DIR,
             f"{count:03}frame.jpg",
         ),
         image,
