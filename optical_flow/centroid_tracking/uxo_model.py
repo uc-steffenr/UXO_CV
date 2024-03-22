@@ -26,7 +26,7 @@ class UXO:
         self.ymax = ymax
 
         self._gpsloc = None
-        self.id = uuid1()
+        self.unique_id = uuid1()
 
     @property
     def bb_center(self):
@@ -41,6 +41,14 @@ class UXO:
     @gps_location.setter
     def gps_location(self, val):
         self._gpsloc = val
+
+    @property
+    def centroid(self):
+        return self._centroid
+
+    @centroid.setter
+    def centroid(self, val):
+        self._centroid = val
 
 
 def process_frame(
