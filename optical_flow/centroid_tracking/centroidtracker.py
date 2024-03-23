@@ -12,10 +12,6 @@ msg_format = "%(asctime)s %(name)s\t%(levelname)s %(message)s"
 coloredlogs.install(level="DEBUG", fmt=msg_format, datefmt="%H:%M:%S", logger=logger)
 
 
-class OpticalFlow:
-    pass
-
-
 class CentroidTracker:
     def __init__(self, frames_needed: int = 3):
         # how many frames in a row to confirm a track as real
